@@ -1,155 +1,121 @@
-//Fecthing activities function
-export async function activitiesFetch(ObjOptions) {
-  try {
-    const response = await fetch(
-      "https://strangers-things.herokuapp.com/api/2206-FTB-ET-WEB-FT/posts"
-    );
-    if (!response.ok) {
-      throw new Error("There was a Problem!!");
-    }
-    const data = await response.json();
 
-    ObjOptions.setInitialState(data.data.posts);
-    ObjOptions.setDataFiltered(data.data.posts);
-    return data.data.posts;
-  } catch (error) {
-    console.error(error);
-  }
-}
 
-//   // Fetching profile data function
-//   export async function userProfileFetch(ObjOptions) {
-//     ObjOptions.setIsLoading(true);
-//     try {
-//       const response = await fetch(
-//         `https://strangers-things.herokuapp.com/api/2206-FTB-ET-WEB-FT/users/me`,
-//         {
-//           method: 'GET',
-//           headers: {
-//             'Content-Type': 'application/json',
-//             Authorization: `Bearer ${ObjOptions.token}`,
-//           },
-//         }
-//       );
+      import axios from "axios";
+      const API_URL = "http://fitnesstrac-kr.herokuapp.com/api";
+      // const API_URL = "https://localhost:3005/api";
+      
+      export const getAllPosts = async () => {
+        const response = await fetch(`${API_URL}/posts`);
+        const result = await response.json();
+        const data = result.data.posts;
+        console.log("Data ");
+        return data;
+      };
+      
+      export const userRegistration = async (username, password) => {
+        console.log("User and Password", username, password);
+        console.log(`${API_URL}/users/register`);
+        const response = await fetch(`${API_URL}/users/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+              username: username,
+              password: password,
+          }),
+        });
+        const result = await response.json();
+        console.log("THIS IS THE RESULT FROM API INDEX.JS: ", result)
+        return result;
+      };
+      
+      export const userLogin = async (username, password) => {
+        const response = await fetch(`${API_URL}/users/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+              username: username,
+              password: password,
+          }),
+        });
+      
+        const result = await response.json();
+        return result;
+      };
+      
+      export const getProfile = async (token) => {
+        const response = await fetch(`${API_URL}/users/me`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const { data } = await response.json();
+        return data;
+      };
+      
+      export const postNew = async (token, post) => {
+        const response = await fetch(`${API_URL}/posts`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            post: post,
+          }),
+        });
+        const result = await response.json();
+        const newPost = result.data.post;
+        return newPost;
+      };
+      
+      export const postMessage = async (token, postID, payload) => {
+        const response = await fetch(`${API_URL}/posts/${postID}/messages`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            message: {
+              content: `${payload.content}`,
+            },
+          }),
+        });
+        const result = await response.json();
+        console.log(result, "posted message after API");
+        return result;
+      };
+      
+      export const modifyPost = async (token, post, postID) => {
+        const response = await fetch(`${API_URL}/posts/${postID}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            post: post,
+          }),
+        });
+        const result = await response.json();
+        console.log(result);
+      };
+      
+      export const deletePost = async (token, postID) => {
+        const response = await fetch(`${API_URL}/posts/${postID}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const result = await response.json();
+        console.log(result);
+      };
+      
 
-//       if (!response.ok) {
-//         throw new Error('Something Went Wrong');
-//       }
-//       const data = await response.json();
-//       ObjOptions.setInitialState(data.data.messages);
-//       ObjOptions.setIsLoading(false);
-//       return data.data.messages;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-//   // fetching a single post
-//   export async function singlePostFetch(objOptions) {
-//     try {
-//       const response = await fetch(
-//         'https://strangers-things.herokuapp.com/api/2206-FTB-ET-WEB-FT/posts'
-//       );
-
-//       if (!response.ok) {
-//         throw new Error('There was a Problem!!');
-//       }
-//       const data = await response.json();
-//       const dataPostArray = await data.data.posts;
-//       const singlePost = dataPostArray.find(
-//         (post) => post._id === objOptions.params.id
-//       );
-//       objOptions.initialState(singlePost);
-//       return singlePost;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-//   // deleting a post
-//   export async function deleteFetch(objOptions) {
-//     try {
-//       const response = await fetch(
-//         `https://strangers-things.herokuapp.com/api/2206-FTB-ET-WEB-FT/posts/${objOptions.id}`,
-//         {
-//           method: 'DELETE',
-//           headers: {
-//             'Content-Type': 'application/json',
-//             Authorization: `Bearer ${objOptions.token}`,
-//           },
-//         }
-//       );
-
-//       if (!response.ok) {
-//         throw new Error('Could not delete post!');
-//       }
-//       const data = await response.json();
-//       return data;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-//   // user login Fetch Function
-//   export async function userLoginFetch(ObjOptions) {
-//     try {
-//       const response = await fetch(
-//         `https://strangers-things.herokuapp.com/api/2206-FTB-ET-WEB-FT/users/me`,
-//         {
-//           method: 'GET',
-//           headers: {
-//             'Content-Type': 'application/json',
-//             Authorization: `Bearer ${ObjOptions.token}`,
-//           },
-//         }
-//       );
-
-//       if (!response.ok) {
-//         throw new Error('Something Went Wrong');
-//       }
-
-//       const data = await response.json();
-
-//       if (data.data) {
-//         ObjOptions.navigate('/home');
-//       }
-//       return data;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-//   // Updating post fetch function
-//   export async function updateFetch(objOptions) {
-//     try {
-//       const response = await fetch(
-//         `https://strangers-things.herokuapp.com/api/2206-FTB-ET-WEB-FT/posts/${objOptions.id}`,
-//         {
-//           method: 'PATCH',
-//           headers: {
-//             'Content-Type': 'application/json',
-//             Authorization: `Bearer ${objOptions.token}`,
-//           },
-//           body: JSON.stringify({
-//             post: {
-//               title: objOptions.title,
-//               description: objOptions.description,
-//               price: objOptions.price,
-//               location: objOptions.location,
-//               willDeliver: true,
-//             },
-//           }),
-//         }
-//       );
-
-//       if (!response.ok) {
-//         throw new Error('Your post was not updated');
-//       }
-
-//       const data = await response.json();
-
-//       return data;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
