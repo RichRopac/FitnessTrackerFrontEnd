@@ -6,10 +6,9 @@
       
       export const getAllRoutines = async () => {
         const response = await fetch(`${API_URL}/routines`);
-        const result = await response.json();
-        const data = result.data.routine;
-        console.log("result");
-        return result;
+        // const result = await response.json();
+        console.log("response");
+        return response;
       };
       
       export const userRegistration = async (username, password) => {

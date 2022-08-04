@@ -1,5 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -25,7 +24,6 @@
   box-sizing: border-box;
   font-size: 30px;
 }
-
 .errorMessage {
   font-family: "Roboto", sans-serif;
   color: rgb(0, 217, 255);
@@ -37,7 +35,6 @@
   box-sizing: border-box;
   font-size: 30px;
 }
-
 .button {
   align-items: center;
   margin-right: 10px;
@@ -52,13 +49,20 @@
   border-radius: 15px;
   box-shadow: 0 1px;
 }
-
 .button:hover {
   background-color: #3e8e41;
 }
-
 .button:active {
   background-color: #768e77;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
+}
+
+a:link {
+  text-decoration: none;
+  color: white;
+}
+
+a:visited {
+  color: white;
 }

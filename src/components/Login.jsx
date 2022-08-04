@@ -1,22 +1,23 @@
-import { useNavigate } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { userLogin } from "../api";
 import "./Login.css";
-
 const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loggedIn, setLoggedIn] = useState("");
+  const navigate = useNavigate();
   const handleOnChange = (event) => {
     const changed = event.target.id;
-    const navigate = useNavigate();
+
     if (changed === "username") {
       setUsername(event.target.value);
     } else {
       setPassword(event.target.value);
     }
   };
-
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
@@ -24,7 +25,10 @@ const Login = (props) => {
       const token = result.token;
       console.log(token, "token inside of login");
       localStorage.setItem("token", token);
-      // navigate("/profile");
+
+      if(token !== undefined ){
+        setLoggedIn("You are now logged in")
+      navigate("/profile");}
     } catch (err) {
       setErrorMessage(
         "Username Doesn't Exists, Please Use Register Option Instead"
@@ -57,9 +61,12 @@ const Login = (props) => {
           Login
         </button>
         <p className="errorMessage">{errorMessage}</p>
+        <p className="yourLoggedIn">{loggedIn}</p>
+        <p className="button">
+            <Link to="/Register">Don't Have a account? Sign Up</Link>
+          </p>
       </div>
     </form>
   );
 };
-
 export default Login;
