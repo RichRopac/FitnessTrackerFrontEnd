@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Login, Posts, Profile, NavBar, Register, NewPost, ModPost, outines } from ".";
+import { Login, Posts, Profile, NavBar, Register, NewPost, ModPost, Routines } from ".";
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Home } from "./Home";
@@ -34,7 +34,7 @@ const App = () => {
           }
         />
         <Route path="/register" element={<Register />} />
-        <Route path="/Routines" element={<routines />} />
+        <Route path="/Routines" element={<Routines />} />
       </Routes>
     </>
   );

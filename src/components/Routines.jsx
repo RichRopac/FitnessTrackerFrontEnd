@@ -3,35 +3,39 @@ import { getProfile, deletePost, getAllRoutines } from "../api";
 import "./Profile.css";
 
 const Routines = (props) => {
+  const [Routine, setRoutine] = useState([])
   console.log("START OF ROUTINES")
+  const fetchRoutines = async() => {
+    setRoutine(await getAllRoutines());  
+  }
+  useEffect(() => {
+    fetchRoutines()
+  },[]);
   
-  const theRoutines = getAllRoutines();
-  console.log ("THESE ARE THE ROUTINES: ". theRoutines)
+  console.log ("THESE ARE THE ROUTINES: ". Routine)
 
-  const displayPublicRoutines = theRoutines ? (
+  const displayPublicRoutines = Routine.length ? (
      <div className="">
-       {Routines.map((theRoutines) => {
+       {Routine.map((theRoutines) => {
          return (
-           <form className="card" key={`my-posts-${routine._id}`}>
+           <form className="card" key={`my-posts-${theRoutines.id}`}>
              <p className="count">
-               ** Routine Number: {theRoutines.indexOf(routine) + 1} **
+               ** Routine Number: {Routine.indexOf(theRoutines) + 1} **
              </p>
              <h2>
-               <u>ID:</u> {routine.id}
+               <u>ID:</u> {theRoutines.id}
              </h2>
              <h3>
-               <u>Creator ID:</u> {routine.creatorID}
+               <u>Creator ID:</u> {theRoutines.creatorID}
              </h3>
              <h3>
-               <u>Routine Name:</u> {routine.name}
+               <u>Routine Name:</u> {theRoutines.name}
              </h3>
-             <h3>
-               <u>Price:</u> {post.price}{" "}
-             </h3>
+            
 
              <button
                className="button"
-               id={`${post._id}`}
+              
                onClick={(event) => {
                  event.preventDefault();
             

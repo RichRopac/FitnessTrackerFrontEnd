@@ -5,8 +5,13 @@
       // const API_URL = "https://localhost:3005/api";
       
       export const getAllRoutines = async () => {
-        const response = await fetch(`${API_URL}/routines`);
-        // const result = await response.json();
+        const response = await(await fetch(`${API_URL}/routines`)).json();
+        console.log("response");
+        return response;
+      };
+
+      export const getAllRoutinesByUser = async (userId) => {
+        const response = await(await fetch(`${API_URL}/users/${userId}/routines`)).json();
         console.log("response");
         return response;
       };
@@ -52,7 +57,7 @@
             Authorization: `Bearer ${token}`,
           },
         });
-        const { data } = await response.json();
+        const  data = await response.json();
         return data;
       };
       
