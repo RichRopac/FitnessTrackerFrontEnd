@@ -62,3 +62,12 @@
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
+
+a:link {
+  text-decoration: none;
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
