@@ -4,12 +4,12 @@
       const API_URL = "http://fitnesstrac-kr.herokuapp.com/api";
       // const API_URL = "https://localhost:3005/api";
       
-      export const getAllPosts = async () => {
-        const response = await fetch(`${API_URL}/posts`);
+      export const getAllRoutines = async () => {
+        const response = await fetch(`${API_URL}/routines`);
         const result = await response.json();
-        const data = result.data.posts;
-        console.log("Data ");
-        return data;
+        const data = result.data.routine;
+        console.log("result");
+        return result;
       };
       
       export const userRegistration = async (username, password) => {

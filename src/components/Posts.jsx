@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NewPost, ModPost, MessageOwner } from "./";
-import { getAllPosts, deletePost, getProfile } from "../api";
+import { deletePost, getProfile } from "../api";
 import "./Posts.css";
 const Posts = (props) => {
   const [searchValue, setSearchValue] = useState("");

@@ -7,9 +7,9 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
   const handleOnChange = (event) => {
     const changed = event.target.id;
+    const navigate = useNavigate();
     if (changed === "username") {
       setUsername(event.target.value);
     } else {

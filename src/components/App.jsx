@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Login, Posts, Profile, NavBar, Register, NewPost, ModPost } from ".";
+import { Login, Posts, Profile, NavBar, Register, NewPost, ModPost, outines } from ".";
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Home } from "./Home";
@@ -11,7 +11,7 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<Navigate replace to="/home" />} />
-        <Route
+        {/* <Route
           path="/posts"
           element={
             <Posts
@@ -20,7 +20,7 @@ const App = () => {
               singlePost={singlePost}
             />
           }
-        />
+        /> */}
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route
@@ -34,6 +34,7 @@ const App = () => {
           }
         />
         <Route path="/register" element={<Register />} />
+        <Route path="/Routines" element={<routines />} />
       </Routes>
     </>
   );

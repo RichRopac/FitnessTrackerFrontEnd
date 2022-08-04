@@ -21,8 +21,8 @@ const NavBar = () => {
       <div>
         {isUserLoggedIn() ? (
           <>
-            <NavLink className="link" to="/Posts">
-              Posts
+            <NavLink className="link" to="/Routines">
+              Routines
             </NavLink>
             <NavLink className="link" to="/Profile">
               Profile
