@@ -1,16 +1,22 @@
 .homePage {
-    font-family: "Henny Penny", cursive;
-    font-size: 130px;
-    color: violet;
-    -webkit-text-stroke: 5px black;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: top;
-    justify-content: center;
-    background-image: url("./pics/Gym.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
-  
+  width: 100%;
+  height: 100%;
+  display: flex;
+  -webkit-text-stroke: 5px black;
+  align-items: center;
+  justify-content: center;
+  background-image: url("./pics/Gym.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.test {
+  font-family: "Henny Penny", cursive;
+  font-size: 89px;
+  color: violet;
+  position: fixed; /* or absolute */
+  top: 30%;
+  left: 33%;
+}
