@@ -25,8 +25,9 @@ const Login = (props) => {
       const token = result.token;
       console.log(token, "token inside of login");
       localStorage.setItem("token", token);
-      setLoggedIn("You are now logged in")
-      navigate("/profile");
+      if(token !== undefined ){
+        setLoggedIn("You are now logged in")
+      navigate("/profile");}
     } catch (err) {
       setErrorMessage(
         "Username Doesn't Exists, Please Use Register Option Instead"
