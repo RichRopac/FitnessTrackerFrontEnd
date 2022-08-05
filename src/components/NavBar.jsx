@@ -28,7 +28,7 @@ const NavBar = () => {
               Activities
             </NavLink>
             <NavLink className="link" to="/Profile">
-              Profile
+              My Routines
             </NavLink>
             <NavLink className="link" onClick={logOut} to="/Home">
               Log Out
