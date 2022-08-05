@@ -9,3 +9,5 @@ export { default as NewPost } from "./NewPost";
 export { default as MessageOwner } from "./MessageOwner";
 export { default as Guest } from "./Routines";
 export { default as Routines } from "./Routines";
+export { default as Activities } from "./Activities";
+export { default as UpdateActivity } from "./UpdateActivity";
