@@ -24,6 +24,9 @@ const NavBar = () => {
             <NavLink className="link" to="/Routines">
               Routines
             </NavLink>
+            <NavLink className="link" to="/Activities">
+              Activities
+            </NavLink>
             <NavLink className="link" to="/Profile">
               Profile
             </NavLink>
@@ -41,6 +44,9 @@ const NavBar = () => {
             </NavLink>
             <NavLink className="link" to="/Routines">
               Routines
+            </NavLink>
+            <NavLink className="link" to="/Activities">
+              Activities
             </NavLink>
           </>
         )}

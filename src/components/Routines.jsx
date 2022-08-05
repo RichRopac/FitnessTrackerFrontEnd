@@ -5,6 +5,7 @@ import "./Profile.css";
 const Routines = (props) => {
   const [Routine, setRoutine] = useState([])
   console.log("START OF ROUTINES")
+  const token = localStorage.getItem("token");
   const fetchRoutines = async() => {
     setRoutine(await getAllRoutines());  
   }
@@ -32,7 +33,8 @@ const Routines = (props) => {
                <u>Routine Name:</u> {theRoutines.name}
              </h3>
             
-
+        { token !== null && (
+          <>
              <button
                className="button"
               
@@ -42,15 +44,17 @@ const Routines = (props) => {
            
                }}
              >
-               Modify This Post{" "}
+               Modify This Routine{" "}
              </button>
              <button
                className="button"
          
              
              >
-               Delete This Post
+               Delete This Routine
              </button>
+            </>
+        )}
            </form>
          );
        })}
