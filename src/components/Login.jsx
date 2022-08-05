@@ -29,9 +29,10 @@ const Login = (props) => {
       if(token !== undefined ){
         setLoggedIn("You are now logged in")
       navigate("/profile");}
+      else{throw new Error("username or password is incorrect");}
     } catch (err) {
       setErrorMessage(
-        "Username Doesn't Exists, Please Use Register Option Instead"
+        "Username or password is incorrect"
       );
     }
   };
