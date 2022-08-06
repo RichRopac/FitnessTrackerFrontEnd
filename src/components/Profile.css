@@ -7,3 +7,12 @@
     color: rgb(0, 68, 255);
   }
   
+  .is-public-container{
+    display:flex;
+  }
+
+  .is-public-checkbox {
+    width: 30px;
+    height: 30px;
+    align-self: center;
+  }

@@ -94,6 +94,19 @@ export const postNew = async (token, post) => {
   return newPost;
 };
 
+export const postNewRoutine = async (token, routine) => {
+  const response = await fetch(`${API_URL}/routines`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(routine),
+  });
+  const result = await response.json();
+  const newPost = result.data.post;
+  return newPost;
+};
 export const postMessage = async (token, postID, payload) => {
   const response = await fetch(`${API_URL}/posts/${postID}/messages`, {
     method: "POST",

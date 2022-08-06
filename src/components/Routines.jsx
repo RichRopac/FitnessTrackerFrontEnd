@@ -1,79 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { getProfile, deletePost, getAllRoutines } from "../api";
 import "./Profile.css";
+import { RoutineDisplay } from "./RoutineDisplay";
 
 const Routines = (props) => {
-  const [Routine, setRoutine] = useState([])
-  console.log("START OF ROUTINES")
-  const token = localStorage.getItem("token");
-  const fetchRoutines = async() => {
-    setRoutine(await getAllRoutines());  
-  }
+  const [Routine, setRoutine] = useState([]);
+  console.log("START OF ROUTINES");
+  // const token = localStorage.getItem("token");
+  const isUserLoggedIn = () => {
+    return !!localStorage.getItem("token");
+  };
+  const fetchRoutines = async () => {
+    setRoutine(await getAllRoutines());
+  };
   useEffect(() => {
-    fetchRoutines()
-  },[]);
-  
-  console.log ("THESE ARE THE ROUTINES: ". Routine)
+    fetchRoutines();
+  }, []);
+
+  console.log("THESE ARE THE ROUTINES: ".Routine);
 
   const displayPublicRoutines = Routine.length ? (
-     <div className="">
-       {Routine.map((theRoutines) => {
-         return (
-           <form className="card" key={`my-posts-${theRoutines.id}`}>
-             <p className="count">
-               ** Routine Number: {Routine.indexOf(theRoutines) + 1} **
-             </p>
-             <h2>
-               <u>Routine Name:</u> {theRoutines.name}
-             </h2>
-             <h3>
-               <u>Goal:</u> {theRoutines.goal}
-             </h3>
-             <h3>
-               <u>Creator:</u> {theRoutines.creatorName}
-             </h3>
-            
-        { token !== null && (
-          <>
-             <button
-               className="button"
-              
-               onClick={(event) => {
-                 event.preventDefault();
-            
-           
-               }}
-             >
-               Modify This Routine{" "}
-             </button>
-             <button
-               className="button"
-         
-             
-             >
-               Delete This Routine
-             </button>
-            </>
-        )}
-           </form>
-         );
-       })}
-     </div>
-   ) : (
-     <div>Loading Routines...</div>
-   );
+    <div className="">
+      {Routine.map((theRoutines) => (
+        <RoutineDisplay
+          theRoutines={theRoutines}
+          isUserLoggedIn={isUserLoggedIn()}
+        />
+      ))}
+    </div>
+  ) : (
+    <div>Loading Routines...</div>
+  );
 
-
-   return (
-     <div className="card-row card">
-       <h1 className="user-posts">{"Public Routines"}</h1>
-         <>
-           {displayPublicRoutines}
-         
-         </>
-      
-     </div>
-   );
+  return (
+    <div className="card-row card">
+      <h1 className="user-posts">{"Public Routines"}</h1>
+      <>{displayPublicRoutines}</>
+    </div>
+  );
 };
 
 export default Routines;
