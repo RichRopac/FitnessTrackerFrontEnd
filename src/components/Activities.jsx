@@ -80,7 +80,7 @@ const Activities = (props) => {
 
   return (
     <div className="card-row card">
-      <h1 className="user-posts">{"Public Activity"}</h1>
+      <h1 className="user-posts">{"Public Activities"}</h1>
         <>
           {displayPublicActivity}
         

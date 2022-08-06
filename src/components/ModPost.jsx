@@ -62,7 +62,7 @@ const ModPost = (props) => {
           setModPostFlag(false);
         }}
       >
-        Cancel Modifyinng Post
+        Cancel Modifying Post
       </button>
     </div>
   );

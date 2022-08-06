@@ -14,10 +14,10 @@ const NavBar = () => {
 
   return (
     <div className="NavBar">
-      {/* <div>
-        <NavLink className="link" to = "/Home">Home</NavLink>
+      <div>
+        <NavLink className="linkHome" to = "/Home">Home</NavLink>
        
-      </div> */}
+      </div>
       <div>
         {isUserLoggedIn() ? (
           <>

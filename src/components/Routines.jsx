@@ -24,13 +24,13 @@ const Routines = (props) => {
                ** Routine Number: {Routine.indexOf(theRoutines) + 1} **
              </p>
              <h2>
-               <u>ID:</u> {theRoutines.id}
+               <u>Routine Name:</u> {theRoutines.name}
              </h2>
              <h3>
-               <u>Creator ID:</u> {theRoutines.creatorID}
+               <u>Goal:</u> {theRoutines.goal}
              </h3>
              <h3>
-               <u>Routine Name:</u> {theRoutines.name}
+               <u>Creator:</u> {theRoutines.creatorName}
              </h3>
             
         { token !== null && (
