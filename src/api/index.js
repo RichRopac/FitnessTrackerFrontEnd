@@ -125,19 +125,34 @@ export const postMessage = async (token, postID, payload) => {
   return result;
 };
 
-export const modifyPost = async (token, post, postID) => {
-  const response = await fetch(`${API_URL}/posts/${postID}`, {
+export const modifyRoutine = async (token, routine, routineId) => {
+  const response = await fetch(`${API_URL}/routines/${routineId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      post: post,
+      routine: routine,
     }),
   });
   const result = await response.json();
-  console.log(result);
+  console.log(routine);
+};
+
+export const modifyPost = async (token, routine, routineId) => {
+  const response = await fetch(`${API_URL}/routines/${routineId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      routine: routine,
+    }),
+  });
+  const result = await response.json();
+  console.log(routine);
 };
 
 export const deletePost = async (token, postID) => {

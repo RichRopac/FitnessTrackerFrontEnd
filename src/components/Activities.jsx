@@ -9,7 +9,9 @@ const Activities = (props) => {
   console.log("START OF ACTIVITIES")
   const { setSingleActivity, singleActivity } = props
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const isUserLoggedIn = () => {
+    return !!localStorage.getItem("token");
+  };
 //   const handleMessage = (event) => {
 //     const singledOutActivity = Activity.filter(
 //       (element) => element._id == event.target.id
@@ -40,7 +42,7 @@ const Activities = (props) => {
               <u>Description:</u> {theActivity.description}
             </h3>
            
-       { token !== null && (
+       { isUserLoggedIn() && (
          <>
             <button
               className="button"

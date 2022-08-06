@@ -6,7 +6,6 @@ import { RoutineDisplay } from "./RoutineDisplay";
 const Routines = (props) => {
   const [Routine, setRoutine] = useState([]);
   console.log("START OF ROUTINES");
-  // const token = localStorage.getItem("token");
   const isUserLoggedIn = () => {
     return !!localStorage.getItem("token");
   };

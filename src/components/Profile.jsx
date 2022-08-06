@@ -66,7 +66,7 @@ const myPosts = (props) => {
   ) : (
     <div className="card-row card">
       <h1 className="user-posts">{`ID: ${profile.id} / ${profile.username}'s Routines`}</h1>
-      <button onClick={() => setShowCreate(true)}>Create a Routine</button>
+      <button className="createButton" onClick={() => setShowCreate(true)}>Create a Routine</button>
       {showCreate ? (
         <div className="">
           <h1>Create New Routine</h1>

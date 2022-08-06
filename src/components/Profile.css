@@ -16,3 +16,43 @@
     height: 30px;
     align-self: center;
   }
+
+  .button-1 {
+    align-items: center;
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #04aa6d;
+    border-color: black;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    width:20vh;
+  }
+
+  .createButton {
+    margin: 0 43% 5px 43%;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #04aa6d;
+    border-color: black;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+  .createButton:hover {
+    background-color: #3e8e41;
+  }
+
+  .createButton:active {
+    background-color: #3e8e41;
+    box-shadow: 0 px #666;
+    transform: translateY(4px);
+  }

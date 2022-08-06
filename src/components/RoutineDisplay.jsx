@@ -1,4 +1,5 @@
 import React from "react";
+import {RoutineMod} from "./";
 
 export const RoutineDisplay = (props) => {
   const {routineIndex, theRoutines, isUserLoggedIn} = props;
@@ -16,7 +17,7 @@ export const RoutineDisplay = (props) => {
       <h3>
         <u>Creator:</u> {theRoutines.creatorName}
       </h3>
-      <h3>
+      <h2>
         <u>Activity:</u>
         <ul style={{ listStyle: "none" }}>
           {theRoutines.activities.map((activity, index) => {
@@ -29,7 +30,7 @@ export const RoutineDisplay = (props) => {
               count,
             } = activity;
             return (
-              <li
+              <li 
                 key={`${id}${routineActivityId}`}
                 style={{
                   display: "flex",
@@ -62,18 +63,21 @@ export const RoutineDisplay = (props) => {
             );
           })}
         </ul>
-      </h3>
+      </h2>
 
       {isUserLoggedIn ? (
         <>
           <button
             className="button"
+            id={`${routineIndex}`}
             onClick={(event) => {
               event.preventDefault();
+              RoutineMod(event);
             }}
           >
             Modify This Routine{" "}
           </button>
+
           <button className="button">Delete This Routine</button>
         </>
       ) : null}
