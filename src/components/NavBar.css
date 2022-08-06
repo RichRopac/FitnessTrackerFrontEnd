@@ -23,4 +23,16 @@
       font-weight: bolder;
       font-size: 30px;
   }
+
+  .linkHomeContainer {
+    width: 100%;
+    align-self: flex-start;
+    margin-left: 10px;
+  }
+
+  .otherLinkContainer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
   
