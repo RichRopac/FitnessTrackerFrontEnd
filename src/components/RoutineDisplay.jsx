@@ -1,11 +1,11 @@
 import React from "react";
 
 export const RoutineDisplay = (props) => {
-  const {theRoutines, isUserLoggedIn} = props;
+  const {routineIndex, theRoutines, isUserLoggedIn} = props;
   return (
     <form className="card" key={`my-posts-${theRoutines.id}`}>
       <p className="count">
-        ** Routine Number: {Routine.indexOf(theRoutines) + 1} **
+        ** Routine Number: {routineIndex + 1} **
       </p>
       <h2>
         <u>Routine Name:</u> {theRoutines.name}

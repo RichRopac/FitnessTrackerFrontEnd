@@ -23,6 +23,7 @@ const Routines = (props) => {
     <div className="">
       {Routine.map((theRoutines) => (
         <RoutineDisplay
+          routineIndex={Routine.indexOf(theRoutines)}
           theRoutines={theRoutines}
           isUserLoggedIn={isUserLoggedIn()}
         />

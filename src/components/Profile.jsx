@@ -110,7 +110,7 @@ const myPosts = (props) => {
           </button>
         </div>
       ) : null}
-      {routines.map(routine=> <RoutineDisplay theRoutine={routine} isUserLoggedIn={!!localStorage.getItem("token")}/>)}
+      {routines.map((routine, index) => <RoutineDisplay routineIndex={index} theRoutines={routine} isUserLoggedIn={!!localStorage.getItem("token")}/>)}
     </div>
   );
 };
