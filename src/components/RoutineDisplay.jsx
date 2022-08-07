@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { RoutineMod } from "./";
+import "./Routines.css";
 
 export const RoutineDisplay = (props) => {
   const { routineIndex, routine, isUserLoggedIn } = props;

@@ -1,6 +1,7 @@
 import axios from "axios";
 const API_URL = "http://fitnesstrac-kr.herokuapp.com/api";
-// const API_URL = "https://localhost:3005/api";
+
+
 // Routines
 export const getAllRoutines = async () => {
   const response = await (await fetch(`${API_URL}/routines`)).json();
@@ -15,24 +16,88 @@ export const getAllRoutinesByUser = async (userId) => {
   console.log("response");
   return response;
 };
-// Activities
-export const getAllActivities = async () => {
-  const response = await (await fetch(`${API_URL}/activities`)).json();
-  console.log("response");
-  return response;
+
+export const postNewRoutine = async (token, routine) => {
+  console.log("ROUTINESDIN: ", routine)
+  const response = await fetch(`${API_URL}/routines`, {
+    method: "POST",
+    headers: {
+       "Content-Type": "application/json",
+       Authorization: `Bearer ${token}`,
+     },
+    body: JSON.stringify(routine),
+  });
+  const result = await response.json();
+  const newRoutine = result;
+  return newRoutine;
 };
-export const modifyActivities = async (postID, name, description) => {
-  const response = await fetch(`${API_URL}/posts/${postID}`, {
+
+export const modifyRoutine = async (token, routine, routineId) => {
+  const response = await fetch(`${API_URL}/routines/${routineId}`, {
     method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({
-      name: name,
-      description: description,
+      routine: routine,
     }),
   });
   const result = await response.json();
   console.log(result);
 };
-// Users
+
+export const deleteRoutine = async (token, routineId) => {
+  const response = await fetch(`${API_URL}/Routines/${routineId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  console.log(result);
+};
+
+// Activities
+export const postNewActivity = async (token, activity) => {
+  const response = await fetch(`${API_URL}/activities`, {
+    method: "POST",
+    headers: {
+       "Content-Type": "application/json",
+       Authorization: `Bearer ${token}`,
+     },
+    body: JSON.stringify(activity),
+  });
+  const result = await response.json();
+  const newActivity = result;
+  return newActivity;
+};
+export const getAllActivities = async () => {
+  const response = await (await fetch(`${API_URL}/activities`)).json();
+  console.log("response");
+  return response;
+};
+
+export const modifyActivity = async (token, activity, activityId) => {
+  console.log("THIS IS THE API INDEXJS RESULT", activity)
+  const response = await fetch(`${API_URL}/activities/${activityId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name: activity.name,
+      description: activity.description
+    }),
+});
+  const result = await response.json();
+  console.log("THIS IS THE API INDEXJS RESULT", result)
+  return result;
+};
+
+// users
 export const userRegistration = async (username, password) => {
   console.log("User and Password", username, password);
   console.log(`${API_URL}/users/register`);
@@ -67,6 +132,7 @@ export const userLogin = async (username, password) => {
   return result;
 };
 
+// profile
 export const getProfile = async (token) => {
   const response = await fetch(`${API_URL}/users/me`, {
     headers: {
@@ -76,137 +142,4 @@ export const getProfile = async (token) => {
   });
   const data = await response.json();
   return data;
-};
-// old stuff
-export const postNew = async (token, post) => {
-  const response = await fetch(`${API_URL}/posts`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      post: post,
-    }),
-  });
-  const result = await response.json();
-  const newPost = result.data.post;
-  return newPost;
-};
-
-export const postNewRoutine = async (token, routine) => {
-  console.log("ROUTINESDIN: ", routine)
-  const response = await fetch(`${API_URL}/routines`, {
-    method: "POST",
-    headers: {
-       "Content-Type": "application/json",
-       Authorization: `Bearer ${token}`,
-     },
-    body: JSON.stringify(routine),
-  });
-  const result = await response.json();
-  const newRoutine = result;
-  return newRoutine;
-};
-export const postNewActivity = async (token, activity) => {
-  const response = await fetch(`${API_URL}/activities`, {
-    method: "POST",
-    headers: {
-       "Content-Type": "application/json",
-       Authorization: `Bearer ${token}`,
-     },
-    body: JSON.stringify(activity),
-  });
-  const result = await response.json();
-  const newActivity = result;
-  return newActivity;
-};
-
-export const postMessage = async (token, postID, payload) => {
-  const response = await fetch(`${API_URL}/posts/${postID}/messages`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      message: {
-        content: `${payload.content}`,
-      },
-    }),
-  });
-  const result = await response.json();
-  console.log(result, "posted message after API");
-  return result;
-};
-
-export const modifyRoutine = async (token, routine, routineId) => {
-  const response = await fetch(`${API_URL}/routines/${routineId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      routine: routine,
-    }),
-  });
-  const result = await response.json();
-  console.log(result);
-};
-
-export const modifyActivity = async (token, activity, activityId) => {
-  console.log("THIS IS THE API INDEXJS RESULT", activity)
-  const response = await fetch(`${API_URL}/activities/${activityId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      name: activity.name,
-      description: activity.description
-    }),
-});
-  const result = await response.json();
-  console.log("THIS IS THE API INDEXJS RESULT", result)
-  return result;
-};
-
-export const deleteActivity = async (activityId) => {
-  const response = await fetch(`${API_URL}/posts/${postID}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const result = await response.json();
-  console.log(result);
-};
-export const modifyPost = async (token, routine, routineId) => {
-  const response = await fetch(`${API_URL}/routines/${routineId}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      routine: routine,
-    }),
-  });
-  const result = await response.json();
-  console.log(routine);
-};
-
-export const deletePost = async (token, postID) => {
-  const response = await fetch(`${API_URL}/posts/${postID}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const result = await response.json();
-  console.log(result);
 };

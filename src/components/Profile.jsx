@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   getProfile,
-  deletePost,
   getAllRoutinesByUser,
   postNewRoutine,
   postNewActivity,
@@ -18,6 +17,7 @@ const myPosts = (props) => {
   const [showRoutine, setShowRoutine] = useState(false);
   const [showActivity, setShowActivity] = useState(false);
   const [name, setName] = useState("");
+  const [errMessage, setErrMessage] = useState("");
   const [nameA, setNameA] = useState("");
   const [goal, setGoal] = useState("");
   const [description, setDescription] = useState("");
@@ -42,10 +42,14 @@ const myPosts = (props) => {
   };
 
   const handleSubmitActivity = async (event) => {
+    try{
     event.preventDefault();
     const token = localStorage.getItem("token");
     postNewActivity(token, { name, description });
-    setShowActivity(false);
+    setShowActivity(false);}
+    catch (error){
+    setErrMessage("Activity by this name already exists, please choose a different name.")
+    }
   };
 
   useEffect(() => {
@@ -85,6 +89,7 @@ const myPosts = (props) => {
       <button className="createButton" onClick={() => setShowActivity(true)}>
         Create an Activity
       </button>
+      <p className="errorMessage">{errMessage}</p>
 
       {showRoutine ? (
         <div className="">

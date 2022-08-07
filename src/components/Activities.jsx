@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { modifyActivities, deletePost, getAllActivities } from "../api";
 import { useNavigate } from "react-router-dom";
 import { UpdateActivity, ActivityMod } from "./";
+import "./Routines.css";
 
 const Activities = (props) => {
   const [activity, setActivity] = useState([]);

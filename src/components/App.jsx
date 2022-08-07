@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Login, Posts, Profile, NavBar, Register, NewPost, ModPost, Routines, Activities, ActivityMod } from ".";
+import { Login, Posts, Profile, NavBar, Register, Routines, Activities, ActivityMod } from ".";
 import { Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
 import { Home } from "./Home";
 const App = () => {
   const [messageFlag, setMessageFlag] = useState(false);

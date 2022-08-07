@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getProfile, deletePost, getAllRoutines } from "../api";
 import "./Profile.css";
 import { RoutineDisplay } from "./RoutineDisplay";
+import "./Routines.css";
 
 const Routines = (props) => {
   const [routines, setRoutines] = useState([]);
