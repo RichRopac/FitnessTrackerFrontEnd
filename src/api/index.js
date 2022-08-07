@@ -32,6 +32,21 @@ export const modifyActivities = async (postID, name, description) => {
   const result = await response.json();
   console.log(result);
 };
+
+export const postNewActivity = async (activity, token) => {
+  const response = await fetch(`${API_URL}/Activities`, {
+    method: "POST",
+    body: JSON.stringify(activity),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  const newPost = result;
+  console.log(newPost);
+  return newPost;
+};
 // Users
 export const userRegistration = async (username, password) => {
   console.log("User and Password", username, password);
