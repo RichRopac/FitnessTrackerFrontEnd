@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { getProfile, deletePost, getAllRoutinesByUser, postNewRoutine } from "../api";
+import {
+  getProfile,
+  deletePost,
+  getAllRoutinesByUser,
+  postNewRoutine,
+  postNewActivity
+} from "../api";
 // import { ModPost } from "./";
 import "./Profile.css";
 import { RoutineDisplay } from "./RoutineDisplay";
 
 const myPosts = (props) => {
   const [profile, setProfile] = useState(null);
+  const [activity, setActivities] = useState([]);
   const [routines, setRoutines] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showCreate, setShowCreate] = useState(false);
+  const [showRoutine, setShowRoutine] = useState(false);
+  const [showActivity, setShowActivity] = useState(false);
   const [name, setName] = useState("");
+  const [nameA, setNameA] = useState("");
   const [goal, setGoal] = useState("");
+  const [description, setDescription] = useState("")
   const [isPublic, setIsPublic] = useState(true);
   const token = localStorage.getItem("token");
   const post = [];
   const { setSinglePost, setMessageFlag, singlePost } = props;
-
-  const handleMessage = (event) => {
-    const singledOutPost = myPosts.filter(
-      (element) => element._id == event.target.id
-    );
-    setSinglePost(singledOutPost[0]);
-  };
 
   const handleDelete = async (event) => {
     event.preventDefault();
@@ -29,12 +32,21 @@ const myPosts = (props) => {
     deletePost(token, event.target.id);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmitRoutine = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
-    postNewRoutine(token, {name,goal,isPublic});
-    setShowCreate(false);
-  }
+
+    console.log("THE DATA GOING IN: ", { name, goal, isPublic });
+    postNewRoutine(token, { name, goal, isPublic });
+    setShowRoutine(false);
+  };
+
+  const handleSubmitActivity = async (event) => {
+    event.preventDefault();
+    const token = localStorage.getItem("token");
+    postNewActivity(token, { name, description });
+    setShowActivity(false);
+  };
 
   useEffect(() => {
     async function fetchProfile() {
@@ -66,11 +78,18 @@ const myPosts = (props) => {
   ) : (
     <div className="card-row card">
       <h1 className="user-posts">{`ID: ${profile.id} / ${profile.username}'s Routines`}</h1>
-      <button className="createButton" onClick={() => setShowCreate(true)}>Create a Routine</button>
-      {showCreate ? (
+
+      <button className="createButton" onClick={() => setShowRoutine(true)}>
+        Create a Routine
+      </button>
+      <button className="createButton" onClick={() => setShowActivity(true)}>
+        Create an Activity
+      </button>
+
+      {showRoutine ? (
         <div className="">
           <h1>Create New Routine</h1>
-          <form className="box form" onSubmit={handleSubmit}>
+          <form className="box form" onSubmit={handleSubmitRoutine}>
             <h2>Name</h2>
             <input
               value={name}
@@ -86,16 +105,50 @@ const myPosts = (props) => {
               }}
             ></input>
             <div className="is-public-container">
-            <h2>Public</h2>
+              <h2>Public</h2>
+              <input
+                className="is-public-checkbox"
+                checked={isPublic}
+                type="checkbox"
+                onChange={(event) => {
+                  setIsPublic(!isPublic);
+                }}
+              ></input>
+            </div>
+            <button className="button" type="submit" value="Routine">
+              Submit
+            </button>
+          </form>
+          <button
+            className="button"
+            onClick={() => {
+              setShowRoutine(false);
+            }}
+          >
+            Cancel New Routine
+          </button>
+        </div>
+      ) : null}
+
+      {showActivity ? (
+        <div className="">
+          <h1>Create New Activity</h1>
+          <form className="box form" onSubmit={handleSubmitActivity}>
+            <h2>Name</h2>
             <input
-            className="is-public-checkbox"
-              checked={isPublic}
-              type="checkbox"
+              value={name}
               onChange={(event) => {
-                setIsPublic(!isPublic);
+                setName(event.target.value);
               }}
             ></input>
-            </div>
+            <h2>Description</h2>
+            <input
+              value={description}
+              onChange={(event) => {
+                setDescription(event.target.value);
+              }}
+            ></input>
+
             <button className="button" type="submit">
               Submit
             </button>
@@ -103,14 +156,21 @@ const myPosts = (props) => {
           <button
             className="button"
             onClick={() => {
-              setShowCreate(false);
+              setShowActivity(false);
             }}
           >
-            Cancel New Routine
+            Cancel New Activity
           </button>
         </div>
       ) : null}
-      {routines.map((routine, index) => <RoutineDisplay routineIndex={index} theRoutines={routine} isUserLoggedIn={!!localStorage.getItem("token")}/>)}
+
+      {routines.map((routine, index) => (
+        <RoutineDisplay
+          routineIndex={index}
+          theRoutines={routine}
+          isUserLoggedIn={!!localStorage.getItem("token")}
+        />
+      ))}
     </div>
   );
 };

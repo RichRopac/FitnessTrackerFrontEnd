@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { render } from "react-dom";
-
-
 const RoutineMod = (props) => {
   const { singleRoutine, setModRoutineFlag } = props;
   const [name, setName] = useState(singleRoutine.name);
   const [goal, setGoal] = useState(singleRoutine.goal);
-  const [isPublic, setIsPublic] = useState(singleRoutine.isPublic)
+  const [isPublic, setIsPublic] = useState(singleRoutine.isPublic);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
@@ -14,7 +12,6 @@ const RoutineMod = (props) => {
       name: name,
       goal: goal,
       isPublic: isPublic,
-
     };
     modifyRoutine(token, singleRoutine, singleRoutine.id);
     setModRoutineFlag(false);
@@ -37,28 +34,27 @@ const RoutineMod = (props) => {
             setDescription(event.target.value);
           }}
         ></input>
-         <h2>Goal</h2>
+        <h2>Public</h2>
         <input
           value={isPublic}
           onChange={(event) => {
-            setDescription(event.target.value);
+            setIsPublic(event.target.value);
           }}
         ></input>
-        
+
         <button className="button" type="submit">
-        Update Routine
+          Update Routine
+        </button>
+      </form>
+      <button
+        className="button"
+        onClick={() => {
+          setModRoutineFlag(false);
+        }}
+      >
+        Cancel Modifying Routine
       </button>
-    </form>
-    <button
-      className="button"
-      onClick={() => {
-        setModRoutineFlag(false);
-      }}
-    >
-      Cancel Modifying Routine
-    </button>
-  </div>
-);
+    </div>
+  );
 };
 export default RoutineMod;
-

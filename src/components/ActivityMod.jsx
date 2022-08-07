@@ -2,21 +2,23 @@ import React, { useState } from "react";
 import { render } from "react-dom";
 import { modifyActivity } from "../api";
 
-const ModActivity = (props) => {
+const ActivityMod = (props) => {
   const { singleActivity, setModActivityFlag } = props;
   const [name, setName] = useState(singleActivity.name);
   const [description, setDescription] = useState(singleActivity.description);
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
-    const post = {
+    const activity = {
       name: name,
       description: description,
 
     };
-    modifyActivity(token, singleActivity, singleActivity._id);
+    modifyActivity(token, activity, singleActivity._id);
     setModActivityFlag(false);
   };
+  console.log("YOU ARE NOW IN THE ACTIVITY MOD");
   return (
     <div className="box">
       <h1>Modify Activity</h1>
@@ -52,4 +54,4 @@ const ModActivity = (props) => {
 );
 };
 
-export default ModActivity;
+export default ActivityMod;

@@ -72,7 +72,7 @@ export const RoutineDisplay = (props) => {
             id={`${routineIndex}`}
             onClick={(event) => {
               event.preventDefault();
-              RoutineMod(event);
+              
             }}
           >
             Modify This Routine{" "}

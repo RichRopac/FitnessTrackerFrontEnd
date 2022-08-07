@@ -5,7 +5,6 @@ import { RoutineDisplay } from "./RoutineDisplay";
 
 const Routines = (props) => {
   const [Routine, setRoutine] = useState([]);
-  console.log("START OF ROUTINES");
   const isUserLoggedIn = () => {
     return !!localStorage.getItem("token");
   };
@@ -16,7 +15,6 @@ const Routines = (props) => {
     fetchRoutines();
   }, []);
 
-  console.log("THESE ARE THE ROUTINES: ".Routine);
 
   const displayPublicRoutines = Routine.length ? (
     <div className="">

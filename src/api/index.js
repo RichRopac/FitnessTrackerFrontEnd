@@ -95,18 +95,33 @@ export const postNew = async (token, post) => {
 };
 
 export const postNewRoutine = async (token, routine) => {
+  console.log("ROUTINESDIN: ", routine)
   const response = await fetch(`${API_URL}/routines`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+       "Content-Type": "application/json",
+       Authorization: `Bearer ${token}`,
+     },
     body: JSON.stringify(routine),
   });
   const result = await response.json();
-  const newPost = result.data.post;
-  return newPost;
+  const newRoutine = result;
+  return newRoutine;
 };
+export const postNewActivity = async (token, activity) => {
+  const response = await fetch(`${API_URL}/activities`, {
+    method: "POST",
+    headers: {
+       "Content-Type": "application/json",
+       Authorization: `Bearer ${token}`,
+     },
+    body: JSON.stringify(activity),
+  });
+  const result = await response.json();
+  const newActivity = result;
+  return newActivity;
+};
+
 export const postMessage = async (token, postID, payload) => {
   const response = await fetch(`${API_URL}/posts/${postID}/messages`, {
     method: "POST",
@@ -137,9 +152,32 @@ export const modifyRoutine = async (token, routine, routineId) => {
     }),
   });
   const result = await response.json();
-  console.log(routine);
+  console.log(result);
 };
 
+export const modifyActivity = async (token, activity, activityId) => {
+  console.log("THIS IS THE API INDEXJS RESULT", activity)
+  const response = await fetch(`${API_URL}/activities/${activityId}`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      activity: activity,
+    }),
+});
+  const result = await response.json();
+  console.log("THIS IS THE API INDEXJS RESULT", result)
+};
+
+export const deleteActivity = async (activityId) => {
+  const response = await fetch(`${API_URL}/posts/${postID}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  console.log(result);
+};
 export const modifyPost = async (token, routine, routineId) => {
   const response = await fetch(`${API_URL}/routines/${routineId}`, {
     method: "PATCH",
