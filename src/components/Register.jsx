@@ -23,8 +23,6 @@ const Register = (props) => {
       event.preventDefault();
       const result = await userRegistration(username, password);
       const token = result.token;
-      console.log("THIS IS THE RESULT: ", result)
-      console.log(token, "token inside of login");
       localStorage.setItem("token", token);
       if(token !== undefined){
       setRegisteredIn("You are now registered")

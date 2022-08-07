@@ -4,7 +4,7 @@ import {
   deletePost,
   getAllRoutinesByUser,
   postNewRoutine,
-  postNewActivity
+  postNewActivity,
 } from "../api";
 // import { ModPost } from "./";
 import "./Profile.css";
@@ -20,7 +20,7 @@ const myPosts = (props) => {
   const [name, setName] = useState("");
   const [nameA, setNameA] = useState("");
   const [goal, setGoal] = useState("");
-  const [description, setDescription] = useState("")
+  const [description, setDescription] = useState("");
   const [isPublic, setIsPublic] = useState(true);
   const token = localStorage.getItem("token");
   const post = [];
@@ -166,8 +166,8 @@ const myPosts = (props) => {
 
       {routines.map((routine, index) => (
         <RoutineDisplay
-          routineIndex={index}
-          theRoutines={routine}
+          routineIndex={routines.indexOf(routine)}
+          routine={routine}
           isUserLoggedIn={!!localStorage.getItem("token")}
         />
       ))}

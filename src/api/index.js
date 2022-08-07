@@ -159,12 +159,18 @@ export const modifyActivity = async (token, activity, activityId) => {
   console.log("THIS IS THE API INDEXJS RESULT", activity)
   const response = await fetch(`${API_URL}/activities/${activityId}`, {
     method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({
-      activity: activity,
+      name: activity.name,
+      description: activity.description
     }),
 });
   const result = await response.json();
   console.log("THIS IS THE API INDEXJS RESULT", result)
+  return result;
 };
 
 export const deleteActivity = async (activityId) => {

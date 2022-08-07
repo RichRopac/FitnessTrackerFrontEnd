@@ -3,20 +3,31 @@ import { render } from "react-dom";
 import { modifyActivity } from "../api";
 
 const ActivityMod = (props) => {
-  const { singleActivity, setModActivityFlag } = props;
+  const { activity, setActivity, singleActivity, setUpdateActivityFlag } = props;
   const [name, setName] = useState(singleActivity.name);
   const [description, setDescription] = useState(singleActivity.description);
-  
+  console.log("INSIDE ACITVITY MOD: ")
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
-    const activity = {
+    const activityToUpdate = {
       name: name,
       description: description,
 
     };
-    modifyActivity(token, activity, singleActivity._id);
-    setModActivityFlag(false);
+    const updatedActivity = await modifyActivity(token, activityToUpdate, singleActivity.id);
+
+    // Update the activity within the activity array
+
+    const activities = activity.map(theActivity => {
+      if (theActivity.id === updatedActivity.id) {
+        return updatedActivity;
+      }  else {
+        return theActivity;
+      }
+    })
+    setActivity(activities);
+    setUpdateActivityFlag(false);
   };
   console.log("YOU ARE NOW IN THE ACTIVITY MOD");
   return (
@@ -45,7 +56,7 @@ const ActivityMod = (props) => {
     <button
       className="button"
       onClick={() => {
-        setModActivityFlag(false);
+        setUpdateActivityFlag(false);
       }}
     >
       Cancel Modifying Post

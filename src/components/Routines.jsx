@@ -4,27 +4,30 @@ import "./Profile.css";
 import { RoutineDisplay } from "./RoutineDisplay";
 
 const Routines = (props) => {
-  const [Routine, setRoutine] = useState([]);
+  const [routines, setRoutines] = useState([]);
   const isUserLoggedIn = () => {
     return !!localStorage.getItem("token");
   };
   const fetchRoutines = async () => {
-    setRoutine(await getAllRoutines());
+    setRoutines(await getAllRoutines());
   };
   useEffect(() => {
     fetchRoutines();
   }, []);
+  console.log("routines?", routines);
 
-
-  const displayPublicRoutines = Routine.length ? (
+  const displayPublicRoutines = routines.length ? (
     <div className="">
-      {Routine.map((theRoutines) => (
-        <RoutineDisplay
-          routineIndex={Routine.indexOf(theRoutines)}
-          theRoutines={theRoutines}
-          isUserLoggedIn={isUserLoggedIn()}
-        />
-      ))}
+      {routines.map((routine) => {
+        console.log("routine in activites", routine);
+        return (
+          <RoutineDisplay
+            routineIndex={routines.indexOf(routine)}
+            routine={routine}
+            isUserLoggedIn={isUserLoggedIn()}
+          />
+        );
+      })}
     </div>
   ) : (
     <div>Loading Routines...</div>

@@ -5,9 +5,9 @@ import { UpdateActivity, ActivityMod } from "./";
 
 const Activities = (props) => {
   const [activity, setActivity] = useState([]);
-  const [updateActivity, setUpdateActivity] = useState(false);
+  const [updateActivityFlag, setUpdateActivityFlag] = useState(false);
   console.log("START OF ACTIVITIES");
-  const { setSingleActivity, singleActivity } = props;
+  const [singleActivity, setSingleActivity] = useState({});
 
   const isUserLoggedIn = () => {
     return !!localStorage.getItem("token");
@@ -17,6 +17,7 @@ const Activities = (props) => {
     deleteActivity(event.target.id);
   };
   const handleSubmit = (event) => {
+    console.log("SHOWING THE EVENT ID: ", event.target.id)
     const singledOutActivity = activity.filter(
       (element) => element.id == event.target.id
     );
@@ -31,7 +32,7 @@ const Activities = (props) => {
     fetchActivities();
   }, []);
 
-  console.log("THESE ARE THE ACTIVITIES: ", activity);
+
   const displayPublicActivity = activity.length ? (
     <div className="">
       {activity.map((theActivity) => {
@@ -51,12 +52,12 @@ const Activities = (props) => {
               <>
                 <button
                   className="button"
+                  id={`${theActivity.id}`}
                   onClick={(event) => {
                     event.preventDefault();
-                    setUpdateActivity(true);
+                    setUpdateActivityFlag(true);
                     handleSubmit(event);
-                    ActivityMod()
-                  }}
+                                    }}
                 >
                   Modify This Activity{" "}
                 </button>
@@ -70,10 +71,24 @@ const Activities = (props) => {
     <div>Loading Activity...</div>
   );
 
+  const getContent = () => {
+   if (updateActivityFlag) {
+      return (
+        <ActivityMod activity={activity} setActivity={setActivity} singleActivity={singleActivity} setUpdateActivityFlag={setUpdateActivityFlag} />
+      );
+    } else{
+      return (
+        <>{displayPublicActivity}</>
+      )
+    }
+  };
+
+
+
   return (
     <div className="card-row card">
       <h1 className="user-posts">{"Public Activities"}</h1>
-      <>{displayPublicActivity}</>
+      {getContent()}
     </div>
   );
 };
