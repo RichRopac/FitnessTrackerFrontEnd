@@ -7,7 +7,7 @@
     "test": "test",
     "start-dev": "NODE_ENV='development' react-scripts start",
     "start": "react-scripts start",
-    "build": "NODE_ENV=production npm run compile=env && react-scripts build"
+    "build": "NODE_ENV=production npm run && react-scripts build"
   },
   "author": "Taylor Rich Alia",
   "license": "MIT",
