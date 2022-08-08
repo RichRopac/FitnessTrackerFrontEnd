@@ -1,7 +1,6 @@
 import axios from "axios";
 const API_URL = "http://fitnesstrac-kr.herokuapp.com/api";
 
-
 // Routines
 export const getAllRoutines = async () => {
   const response = await (await fetch(`${API_URL}/routines`)).json();
@@ -18,13 +17,13 @@ export const getAllRoutinesByUser = async (userId) => {
 };
 
 export const postNewRoutine = async (token, routine) => {
-  console.log("ROUTINESDIN: ", routine)
+  console.log("ROUTINESDIN: ", routine);
   const response = await fetch(`${API_URL}/routines`, {
     method: "POST",
     headers: {
-       "Content-Type": "application/json",
-       Authorization: `Bearer ${token}`,
-     },
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(routine),
   });
   const result = await response.json();
@@ -40,15 +39,72 @@ export const modifyRoutine = async (token, routine, routineId) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      routine: routine,
+      name: routine.name,
+      goal: routine.goal,
     }),
   });
   const result = await response.json();
   console.log(result);
+  return result;
+};
+
+export const postNewActivityToRoutine = async (
+  token,
+  newActivity,
+  routineId
+) => {
+  const response = await fetch(`${API_URL}/routines/${routineId}/activities`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(newActivity),
+  });
+  const result = await response.json();
+  const _newActivity = result;
+  return _newActivity;
+};
+
+export const deleteActivityFromRoutine = async (token, routineActivityId) => {
+  const response = await fetch(
+    `${API_URL}/routine_activities/${routineActivityId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const result = await response.json();
+  console.log(result);
+};
+
+export const modifyActivityOfRoutine = async (
+  token,
+  activity,
+  routineActivityId
+) => {
+  console.log("THIS IS THE API INDEXJS RESULT", activity);
+  const response = await fetch(
+    `${API_URL}/routine_activities/${routineActivityId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(activity),
+    }
+  );
+  const result = await response.json();
+  console.log("THIS IS THE API INDEXJS RESULT", result);
+  return result;
 };
 
 export const deleteRoutine = async (token, routineId) => {
-  const response = await fetch(`${API_URL}/Routines/${routineId}`, {
+  const response = await fetch(`${API_URL}/routines/${routineId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -64,9 +120,9 @@ export const postNewActivity = async (token, activity) => {
   const response = await fetch(`${API_URL}/activities`, {
     method: "POST",
     headers: {
-       "Content-Type": "application/json",
-       Authorization: `Bearer ${token}`,
-     },
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(activity),
   });
   const result = await response.json();
@@ -80,7 +136,7 @@ export const getAllActivities = async () => {
 };
 
 export const modifyActivity = async (token, activity, activityId) => {
-  console.log("THIS IS THE API INDEXJS RESULT", activity)
+  console.log("THIS IS THE API INDEXJS RESULT", activity);
   const response = await fetch(`${API_URL}/activities/${activityId}`, {
     method: "PATCH",
     headers: {
@@ -89,11 +145,11 @@ export const modifyActivity = async (token, activity, activityId) => {
     },
     body: JSON.stringify({
       name: activity.name,
-      description: activity.description
+      description: activity.description,
     }),
-});
+  });
   const result = await response.json();
-  console.log("THIS IS THE API INDEXJS RESULT", result)
+  console.log("THIS IS THE API INDEXJS RESULT", result);
   return result;
 };
 

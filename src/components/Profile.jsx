@@ -9,7 +9,7 @@ import {
 import "./Profile.css";
 import { RoutineDisplay } from "./RoutineDisplay";
 
-const myPosts = (props) => {
+const Profile = (props) => {
   const [profile, setProfile] = useState(null);
   const [activity, setActivities] = useState([]);
   const [routines, setRoutines] = useState([]);
@@ -171,13 +171,17 @@ const myPosts = (props) => {
 
       {routines.map((routine, index) => (
         <RoutineDisplay
+        key={routine.id}
           routineIndex={routines.indexOf(routine)}
           routine={routine}
+          routines={routines}
+          setRoutines= {setRoutines}
           isUserLoggedIn={!!localStorage.getItem("token")}
+          user={profile}
         />
       ))}
     </div>
   );
 };
 
-export default myPosts;
+export default Profile;

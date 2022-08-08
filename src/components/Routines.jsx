@@ -5,6 +5,7 @@ import { RoutineDisplay } from "./RoutineDisplay";
 import "./Routines.css";
 
 const Routines = (props) => {
+  const {user} = props;
   const [routines, setRoutines] = useState([]);
   const isUserLoggedIn = () => {
     return !!localStorage.getItem("token");
@@ -20,12 +21,16 @@ const Routines = (props) => {
   const displayPublicRoutines = routines.length ? (
     <div className="">
       {routines.map((routine) => {
-        console.log("routine in activites", routine);
+       
         return (
           <RoutineDisplay
+            key={routine.id}
             routineIndex={routines.indexOf(routine)}
             routine={routine}
+            routines={routines}
+            setRoutines={setRoutines}
             isUserLoggedIn={isUserLoggedIn()}
+            user={user}
           />
         );
       })}

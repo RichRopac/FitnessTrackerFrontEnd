@@ -1,19 +1,30 @@
 import React, { useState } from "react";
 import { RoutineMod } from "./";
+import { deleteRoutine } from "../api";
 import "./Routines.css";
 
 export const RoutineDisplay = (props) => {
-  const { routineIndex, routine, isUserLoggedIn } = props;
+  const { routineIndex, routine, routines, setRoutines, isUserLoggedIn, user } =
+    props;
   // console.log("routine", routine);
 
   const [updateRoutineFlag, setUpdateRoutineFlag] = useState(false);
-
+  const routineDelete = async () => {
+    const token = localStorage.getItem("token");
+    await deleteRoutine(token, routine.id); // Delete off Backend
+    const updatedRoutines = routines.filter((_routine) => {
+      return _routine.id !== routine.id;
+    });
+    setRoutines(updatedRoutines); // Delete off frontend (page)
+  };
   return (
     <div>
       {updateRoutineFlag ? (
-        <RoutineMod 
+        <RoutineMod
           routine={routine}
           setUpdateRoutineFlag={setUpdateRoutineFlag}
+          routines={routines}
+          setRoutines= {setRoutines}
         />
       ) : (
         <form className="card" key={`my-posts-${routine.id}`}>
@@ -27,6 +38,25 @@ export const RoutineDisplay = (props) => {
           <h3>
             <u>Creator:</u> {routine.creatorName}
           </h3>
+          {isUserLoggedIn ? (
+            <>
+              <button
+                className="button"
+                id={`${routineIndex}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setUpdateRoutineFlag(true);
+                }}
+              >
+                Modify This Routine{" "}
+              </button>
+            </>
+          ) : null}
+          {user.id === routine.creatorId ? (
+            <button className="button" onClick={routineDelete} type="button">
+              Delete This Routine
+            </button>
+          ) : null}
           <h2>
             <u>Activity:</u>
             <ul style={{ listStyle: "none" }}>
@@ -74,23 +104,6 @@ export const RoutineDisplay = (props) => {
               })}
             </ul>
           </h2>
-
-          {isUserLoggedIn ? (
-            <>
-              <button
-                className="button"
-                id={`${routineIndex}`}
-                onClick={(event) => {
-                  event.preventDefault();
-                  setUpdateRoutineFlag(true);
-                }}
-              >
-                Modify This Routine{" "}
-              </button>
-
-              <button className="button">Delete This Routine</button>
-            </>
-          ) : null}
         </form>
       )}
     </div>
